@@ -9,8 +9,9 @@ float angle = 0;
 int asciiCode;
 String letterPressed = "";
 int i = 1;
-int initialRadius = 30;
+int initialRadius = 150;
 int minRadius = 2;
+int tool = 1;
 
 
 void setup() {
@@ -51,6 +52,7 @@ void mouseReleased() {
 }
 
 void mouseDragged() {
+  drawCircle(mouseX,mouseY,initialRadius);
 
 }
 
@@ -60,19 +62,30 @@ void keyPressed() {
     save("MelachrinosMatthew_DrawingApp" +day()+hour()+ second() +".png");
     println("Screenshot Saved");
   }
-  if (asciiCode== 43 || asciiCode== 61) {
+  if ( asciiCode== 61) {
     initialRadius++;
+    println("Radius: " + initialRadius);
+  }
+  if ( asciiCode== 43) {
+    initialRadius+=10;
     println("Radius: " + initialRadius);
   }
   if (asciiCode== 45) {
     initialRadius--;
     println("Radius: " + initialRadius);
   }
-  println( key);
+  if (asciiCode== 95) {
+    initialRadius-=10;
+    println("Radius: " + initialRadius);
+  }
+  if (asciiCode== 32) {
+    background(200);
+    println("RESET");
+  }
+ //println( int(key));
 }
 
 void drawCircle(float x, float y, float r){
-  
   noFill();
   ellipse(x,y,r,r);
   r *=.75;
@@ -81,5 +94,4 @@ void drawCircle(float x, float y, float r){
   if (r >minRadius ){
     drawCircle(x,y,r);
   }
-  
 }
